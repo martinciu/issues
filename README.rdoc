@@ -18,6 +18,64 @@ Or install it yourself as:
 
 == Usage
 
+    issues [global options] command_name [command-specific options] [--] arguments...
+
+* Use the command +help+ to get a summary of commands
+* Use the command <tt>help command_name</tt> to get a help for +command_name+
+* Use <tt>--</tt> to stop command line argument processing; useful if your arguments have dashes in them
+
+=== Global Options
+These options are available for any command and are specified before the name of the command
+
+[<tt>--help</tt>] Show this message
+[<tt>-p, --password=password</tt>] password
+[<tt>-r, --repo=owner/repo</tt>] repository
+[<tt>-u, --username=username</tt>] username
+== Commands
+[<tt>help</tt>] Shows list of commands or help for one command
+[<tt>initconfig</tt>] Initialize the config file using current global options
+[<tt>list</tt>] List of Issues
+[<tt>milestones</tt>] List of Milestones
+
+==== <tt>help [command]</tt>
+
+Shows list of commands or help for one command
+
+Gets help for the application or its commands.  Can also list the commands in a way helpful to creating a bash-style completion function
+
+===== Options
+These options are specified *after* the command.
+
+[<tt>-c, --completion</tt>] List all commands one line at a time, for use with shell completion ([command] argument is partial command to match)
+==== <tt>initconfig </tt>
+
+Initialize the config file using current global options
+
+Initializes a configuration file where you can set default options for command line flags, both globally and on a per-command basis.  These defaults override the built-in defaults and allow you to omit commonly-used command line flags when invoking this program
+
+===== Options
+These options are specified *after* the command.
+
+[<tt>--force</tt>] force overwrite of existing config file
+==== <tt>list </tt>
+
+List of Issues
+
+===== Options
+These options are specified *after* the command.
+
+[<tt>-a, --assignee=username</tt>] assignee
+[<tt>-l, --labels=label1,label2</tt>] list of comma separated Label names. Example: bug,ui,@high
+[<tt>-m, --milestone</tt>] mileston 
+[<tt>-s, --state=state</tt>] state
+==== <tt>milestones </tt>
+
+List of Milestones
+
+===== Options
+These options are specified *after* the command.
+
+[<tt>-s, --state=state</tt>] state <i>( default: <tt>open</tt>)</i>
 :include:issues.rdoc
 
 == Contributing
