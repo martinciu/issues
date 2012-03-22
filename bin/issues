@@ -1,0 +1,95 @@
+#!/usr/bin/env ruby
+# 1.9 adds realpath to resolve symlinks; 1.8 doesn't
+# have this method, so we add it so we get resolved symlinks
+# and compatibility
+unless File.respond_to? :realpath
+  class File #:nodoc:
+    def self.realpath path
+      return realpath(File.readlink(path)) if symlink?(path)
+      path
+    end
+  end
+end
+$: << File.expand_path(File.dirname(File.realpath(__FILE__)) + '/../lib')
+require 'rubygems'
+require 'gli'
+require 'issues'
+
+include GLI
+
+program_desc 'GitHub Issues Command Line Interface'
+
+version Issues::VERSION
+
+config_file '.issuesrc'
+
+desc 'username'
+arg_name 'username'
+flag [:u, :username]
+
+desc 'password'
+arg_name 'password'
+flag [:p, :password]
+
+desc 'repository'
+arg_name 'owner/repo'
+flag [:r, :repo]
+
+desc 'List of Issues'
+command :list do |c|
+  c.desc 'mileston '
+  c.arg_name 'milestone'
+  c.switch [:m, :milestone]
+
+  c.desc 'assignee'
+  c.arg_name 'username'
+  c.flag [:a, :assignee]
+
+  c.desc 'list of comma separated Label names. Example: bug,ui,@high'
+  c.arg_name 'label1,label2'
+  c.flag [:l, :labels]
+
+  c.desc 'state'
+  c.arg_name 'state'
+  c.flag [:s, :state]
+
+  c.action do |global_options,options,args|
+    puts '[TODO] Implement Issues List'
+  end
+end
+
+desc 'List of Milestones'
+command :milestones do |c|
+  c.desc 'state'
+  c.arg_name 'state'
+  c.default_value 'open'
+  c.flag [:s, :state]
+
+  c.action do |global_options,options,args|
+    p '[TODO] Implement Milestones List'
+  end
+end
+
+
+pre do |global,command,options,args|
+  # Pre logic here
+  # Return true to proceed; false to abort and not call the
+  # chosen command
+  # Use skips_pre before a command to skip this block
+  # on that command only
+  true
+end
+
+post do |global,command,options,args|
+  # Post logic here
+  # Use skips_post before a command to skip this
+  # block on that command only
+end
+
+on_error do |exception|
+  # Error logic here
+  # return false to skip default error handling
+  true
+end
+
+exit GLI.run(ARGV)
