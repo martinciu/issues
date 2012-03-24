@@ -11,8 +11,11 @@ spec = Gem::Specification.new do |s|
   s.extra_rdoc_files = ['README.rdoc','issues.rdoc']
   s.rdoc_options << '--title' << 'issues' << '--main' << 'README.rdoc' << '-ri'
   s.bindir = 'bin'
-  s.add_development_dependency('rake')
-  s.add_development_dependency('rdoc')
+  s.add_dependency 'virtus', ['>=0.4.0']
+  s.add_dependency 'faraday', ['>=0.7.6']
+  s.add_dependency 'json', ['>=1.6.5']
+  s.add_development_dependency 'rake', ['>=0.9.2.2']
+  s.add_development_dependency 'rdoc', ['>=3.12']
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

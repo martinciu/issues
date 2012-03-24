@@ -39,7 +39,7 @@ desc 'List of Issues'
 command :list do |c|
   c.desc 'mileston '
   c.arg_name 'milestone'
-  c.switch [:m, :milestone]
+  c.flag [:m, :milestone]
 
   c.desc 'assignee'
   c.arg_name 'username'
@@ -66,17 +66,16 @@ command :milestones do |c|
   c.flag [:s, :state]
 
   c.action do |global_options,options,args|
-    p '[TODO] Implement Milestones List'
+    Issues::Repo.find(global_options[:repo]).milestones.each do |milestone|
+      p milestone
+    end
   end
 end
 
 
 pre do |global,command,options,args|
-  # Pre logic here
-  # Return true to proceed; false to abort and not call the
-  # chosen command
-  # Use skips_pre before a command to skip this block
-  # on that command only
+  Issues::Github.username = global[:username]
+  Issues::Github.password = global[:password]
   true
 end
 
