@@ -17,5 +17,7 @@ module Issues
     def handle
       "#{owner.login}/#{name}"
     end
+    alias :to_s :handle 
+
   end
 end

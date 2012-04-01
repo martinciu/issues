@@ -10,5 +10,9 @@ require 'issues/repo'
 require 'issues/milestone'
 
 module Issues
+  
+  class << self
+    attr_accessor :repo
+  end
 
 end

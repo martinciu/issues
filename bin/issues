@@ -37,8 +37,8 @@ flag [:r, :repo]
 
 desc 'List of Issues'
 command :list do |c|
-  c.desc 'mileston '
-  c.arg_name 'milestone'
+  c.desc 'milestone'
+  c.arg_name 'milestone_number'
   c.flag [:m, :milestone]
 
   c.desc 'assignee'
@@ -66,7 +66,7 @@ command :milestones do |c|
   c.flag [:s, :state]
 
   c.action do |global_options,options,args|
-    Issues::Repo.find(global_options[:repo]).milestones.each do |milestone|
+    Issues::Milestone.all.each do |milestone|
       p milestone
     end
   end
@@ -76,6 +76,7 @@ end
 pre do |global,command,options,args|
   Issues::Github.username = global[:username]
   Issues::Github.password = global[:password]
+  Issues.repo = Issues::Repo.find(global[:repo])
   true
 end
 
