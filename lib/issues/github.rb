@@ -1,4 +1,5 @@
 require 'issues/github/connection'
+require 'issues/github/response'
 require 'issues/github/resource'
 
 module Issues

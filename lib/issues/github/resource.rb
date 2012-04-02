@@ -12,20 +12,31 @@ module Issues
 
       module ClassMethods
         def all
-          JSON.parse(github.get(all_url).body).map { |attributes| new(attributes) }
+          fetch_all.map { |attributes| new(attributes) }
         end
 
         def repo
           Issues.repo
         end
 
-        def github
-          Github.connection
-        end
-
         protected
         def all_url
-          "/repos/#{repo}/#{resources}"
+          "/repos/#{repo}/#{resources}?per_page=100"
+        end
+
+        def get(url)
+          Issues::Github::Response.new Github.connection.get(url)
+        end
+
+        def fetch_all
+          url = all_url
+          resources = []
+          begin
+            response = get(url)
+            resources += response.body
+          end while url = response.next_url
+
+          resources
         end
         
         def resource

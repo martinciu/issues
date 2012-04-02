@@ -54,7 +54,9 @@ command :list do |c|
   c.flag [:s, :state]
 
   c.action do |global_options,options,args|
-    puts '[TODO] Implement Issues List'
+    Issues::Issue.all.each do |issue|
+      p issue
+    end
   end
 end
 

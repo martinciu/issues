@@ -8,6 +8,8 @@ require 'issues/github'
 require 'issues/user'
 require 'issues/repo'
 require 'issues/milestone'
+require 'issues/label'
+require 'issues/issue'
 
 module Issues
   
