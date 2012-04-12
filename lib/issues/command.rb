@@ -1,6 +1,7 @@
 require 'optparse'
 
 require 'issues/command/options'
+require 'issues/command/hooks'
 require 'issues/command/resolver'
 
 require 'issues/command/base'

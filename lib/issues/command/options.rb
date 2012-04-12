@@ -8,6 +8,8 @@ module Issues
 
       def self.included(base)
         base.extend ClassMethods
+        base.send(:include, Hooks)
+        base.after_initialize :parse_options
       end
 
       module ClassMethods
@@ -20,10 +22,18 @@ module Issues
         end
 
         private
+
         def global_options
           Main.options unless self == Main
         end
 
+      end
+
+      private
+      attr_accessor :options
+
+      def parse_options
+        self.options = Options::Parser.new(self.class, args).parse
       end
 
     end
