@@ -1,3 +1,6 @@
+require 'issues/command/options/options_parser'
+require 'issues/command/options/config_parser'
+
 module Issues
   module Command
     module Options
@@ -8,25 +11,26 @@ module Issues
         end
 
         def parse
-          parser.parse!(args)
-
-          options
+          parsers.inject(Group.new) { |group, parser| group.merge(parser.parse) }
         end
 
         private
         attr_accessor :klass, :args
+
         def options
           klass.options
         end
 
-        def parser
-          OptionParser.new do |parser|
-            options.each do |option|
-              parser.on(*option.args) do |value|
-                option.value = value
-              end
-            end
-          end
+        def options_parser
+          OptionsParser.new(options, args)
+        end
+
+        def config_parser(path)
+          ConfigParser.new(options, path)
+        end
+
+        def parsers
+          [config_parser("~/.issues"), config_parser(".issues"), options_parser] 
         end
 
       end

@@ -4,7 +4,16 @@ module Issues
 
       class Group
         extend Forwardable
+        include Enumerable
         def_delegators :options, :each, :find, :<<
+
+        def merge(other)
+          other.each do |option|
+            options << option unless include?(option)
+          end
+
+          self
+        end
 
         def initialize(options = [])
           options ||= []
@@ -15,6 +24,10 @@ module Issues
 
         def fetch(name)
           find { |option| option.name == name.to_s }
+        end
+
+        def <=>(ohter)
+          name == other.name.to_s
         end
 
         private
