@@ -4,6 +4,8 @@ module Issues
 
       def self.included(base)
         base.extend ClassMethods
+        base.send(:alias_method, :initialize_without_hooks, :initialize)
+        base.send(:alias_method, :initialize, :initialize_with_hooks)
       end
 
       module ClassMethods
@@ -27,6 +29,11 @@ module Issues
         hooks.each do |hook|
           send(hook)
         end
+      end
+
+      def initialize_with_hooks(args)
+        initialize_without_hooks
+        run_hooks
       end
  
     end

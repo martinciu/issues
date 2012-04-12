@@ -8,12 +8,8 @@ module Issues
       option :username, '--username login', '-u'
       option :password, '--password password', '-p'
 
-      def initialize(args)
-        @args = args
-      end
-
       def run
-        Resolver.new(@args).command.run
+        Resolver.new(args).command.run
       end
 
     end

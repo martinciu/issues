@@ -2,11 +2,6 @@ module Issues
   module Command
     module Base
 
-      def initialize(args)
-        self.args = args
-        run_hooks
-      end
-
       def run
         success
       end
@@ -17,7 +12,6 @@ module Issues
       end
 
       private
-      attr_accessor :args 
       def success
         0
       end
