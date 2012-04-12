@@ -1,5 +1,5 @@
 module Issues
-  module Command
+  module Commands
     class Help
       include Issues::Command::Base
 

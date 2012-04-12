@@ -47,7 +47,7 @@ module Issues
       end
 
       def namespaced(class_name)
-        "Issues::Command::#{class_name}"
+        "Issues::Commands::#{class_name}"
       end
 
     end

@@ -7,10 +7,10 @@ require 'issues/command/resolver'
 require 'issues/command/base'
 require 'issues/command/authenticated'
 require 'issues/command/with_repo'
-
 require 'issues/command/main'
-require 'issues/command/help'
-require 'issues/command/milestones'
+
+require 'issues/commands/help'
+require 'issues/commands/milestones'
 
 module Issues
   module Command

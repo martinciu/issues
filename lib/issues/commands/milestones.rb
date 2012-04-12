@@ -1,5 +1,5 @@
 module Issues
-  module Command
+  module Commands
 
     class Milestones
       include Issues::Command::Base
